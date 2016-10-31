@@ -32,11 +32,11 @@
     <ClCompile Include="..\geoip_natives.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\public\sdk\amxxmodule.cpp">
-      <Filter>Module SDK\SDK Base</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\third_party\libmaxminddb\maxminddb.c">
+    <ClCompile Include="..\..\third_party\libmaxminddb\maxminddb.c">
       <Filter>GeoIP2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\public\sdk\amxxmodule.cpp">
+      <Filter>Module SDK\SDK Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -52,17 +52,17 @@
     <ClInclude Include="..\moduleconfig.h">
       <Filter>Module SDK</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\public\sdk\amxxmodule.h">
+    <ClInclude Include="..\..\third_party\libmaxminddb\maxminddb.h">
+      <Filter>GeoIP2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\third_party\libmaxminddb\maxminddb_config.h">
+      <Filter>GeoIP2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\third_party\libmaxminddb\maxminddb-compat-util.h">
+      <Filter>GeoIP2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\public\sdk\amxxmodule.h">
       <Filter>Module SDK\SDK Base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\third_party\libmaxminddb\maxminddb.h">
-      <Filter>GeoIP2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\third_party\libmaxminddb\maxminddb_config.h">
-      <Filter>GeoIP2</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\third_party\libmaxminddb\maxminddb-compat-util.h">
-      <Filter>GeoIP2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
