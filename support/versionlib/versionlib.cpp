@@ -1,8 +1,8 @@
 
-#include <amxmodx_version.h>
+#include <module_version.h>
 #include <versionlib.h>
 
-const char *AMXX_LOCAL_REV  = AMXX_BUILD_LOCAL_REV;
-const char *AMXX_SHA        = AMXX_BUILD_CSET;
-const char *AMXX_VERSION    = AMXX_VERSION_STRING;
-const char *AMXX_BUILD_TIME = __DATE__ " " __TIME__;
+const char *EXTENSION_LOCAL_REV  = EXTENSION_BUILD_LOCAL_REV;
+const char *EXTENSION_SHA        = EXTENSION_BUILD_CSET;
+const char *EXTENSION_VERSION    = EXTENSION_VERSION_STRING;
+const char *EXTENSION_BUILD_TIME = __DATE__ " " __TIME__;

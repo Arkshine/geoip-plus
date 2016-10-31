@@ -26,8 +26,8 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION AMXX_VERSION_FILE
- PRODUCTVERSION AMXX_VERSION_FILE
+ FILEVERSION EXTENSION_VERSION_FILE
+ PRODUCTVERSION EXTENSION_VERSION_FILE
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -42,14 +42,14 @@ BEGIN
     BEGIN
         BLOCK "000004b0"
         BEGIN
-            VALUE "Comments", "AMX Mod X"
-            VALUE "FileDescription", "AMX Mod X"
-            VALUE "FileVersion", AMXX_VERSION
+            VALUE "Comments", "AMX Mod X Module"
+            VALUE "FileDescription", "AMX Mod X Module"
+            VALUE "FileVersion", EXTENSION_VERSION
             VALUE "InternalName", MODULE_LIBRARY
             VALUE "LegalCopyright", "Copyright (c) AMX Mod X Dev Team"
             VALUE "OriginalFilename", MODULE_LIBRARY "_amxx.dll"
             VALUE "ProductName", MODULE_NAME
-            VALUE "ProductVersion", AMXX_VERSION
+            VALUE "ProductVersion", EXTENSION_VERSION
         END
     END
     BLOCK "VarFileInfo"

@@ -5,8 +5,8 @@ lib = builder.compiler.StaticLibrary('version')
 lib.compiler.includes += [
   os.path.join(builder.sourcePath, 'public'),
 ]
-lib.compiler.defines.remove('AMXX_USE_VERSIONLIB')
-lib.compiler.sourcedeps += AMXX.generated_headers
+lib.compiler.defines.remove('EXTENSION_USE_VERSIONLIB')
+lib.compiler.sourcedeps += Module.generated_headers
 lib.sources += [
   'versionlib.cpp'
 ]

@@ -62,53 +62,24 @@ def output_version_headers():
     if tag == "dev":
       fullstring += "+{0}".format(count)
 
-  with open(os.path.join(OutputFolder, 'amxmodx_version_auto.h'), 'w') as fp:
+  with open(os.path.join(OutputFolder, 'module_version_auto.h'), 'w') as fp:
     fp.write("""
-#ifndef _AMXMODX_AUTO_VERSION_INFORMATION_H_
-#define _AMXMODX_AUTO_VERSION_INFORMATION_H_
+#ifndef _EXTENSION_AUTO_VERSION_INFORMATION_H_
+#define _EXTENSION_AUTO_VERSION_INFORMATION_H_
 
-#define AMXX_BUILD_TAG        \"{0}\"
-#define AMXX_BUILD_CSET       \"{1}\"
-#define AMXX_BUILD_MAJOR      \"{2}\"
-#define AMXX_BUILD_MINOR      \"{3}\"
-#define AMXX_BUILD_RELEASE    \"{4}\"
-#define AMXX_BUILD_LOCAL_REV  \"{6}\"
+#define EXTENSION_BUILD_TAG        \"{0}\"
+#define EXTENSION_BUILD_CSET       \"{1}\"
+#define EXTENSION_BUILD_MAJOR      \"{2}\"
+#define EXTENSION_BUILD_MINOR      \"{3}\"
+#define EXTENSION_BUILD_RELEASE    \"{4}\"
+#define EXTENSION_BUILD_LOCAL_REV  \"{6}\"
 
-#define AMXX_BUILD_UNIQUEID   "{6}:" AMXX_BUILD_CSET
+#define EXTENSION_BUILD_UNIQUEID   "{6}:" AMXX_BUILD_CSET
 
-#define AMXX_VERSION_STRING   \"{5}\"
-#define AMXX_VERSION_FILE     {2},{3},{4},0
+#define EXTENSION_VERSION_STRING   \"{5}\"
+#define EXTENSION_VERSION_FILE     {2},{3},{4},0
 
-#endif // _AMXMODX_AUTO_VERSION_INFORMATION_H_
+#endif // _EXTENSION_AUTO_VERSION_INFORMATION_H_
     """.format(tag, shorthash, major, minor, release, fullstring, count))
-
-  version_num = int(major) * 100 + int(minor) * 10 + int(release)
-  with open(os.path.join(OutputFolder, 'amxmodx_version.inc'), 'w') as fp:
-    fp.write("""
-#if defined _amxmodx_version_included
-  #endinput
-#endif
-#define _amxmodx_version_included
-
-#define AMXX_VERSION_TAG        \"{tag}\"
-#define AMXX_VERSION_CSET       \"{shorthash}\"
-#define AMXX_VERSION_MAJOR      \"{major}\"
-#define AMXX_VERSION_MINOR      \"{minor}\"
-#define AMXX_VERSION_RELEASE    \"{release}\"
-#define AMXX_VERSION_LOCAL_REV  \"{count}\"
-#define AMXX_VERSION            {major}.{minor}{release}
-#define AMXX_VERSION_NUM        {version_num}
-
-stock const AMXX_VERSION_STR[] = "{fullstring}";
-    """.format(
-      tag = tag,
-      shorthash = shorthash,
-      major = major,
-      minor = minor,
-      release = release,
-      count = count,
-      version_num = version_num,
-      fullstring = fullstring
-    ))
 
 output_version_headers()

@@ -13,8 +13,7 @@ argv = [
   os.path.join(builder.buildPath, 'includes'),
 ]
 outputs = [
-  os.path.join(builder.buildFolder, 'includes', 'amxmodx_version_auto.h'),
-  os.path.join(builder.buildFolder, 'includes', 'amxmodx_version.inc'),
+  os.path.join(builder.buildFolder, 'includes', 'module_version_auto.h'),
 ]
 
 with open(os.path.join(builder.sourcePath, '.git', 'HEAD')) as fp:

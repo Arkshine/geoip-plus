@@ -14,11 +14,11 @@
 #ifndef __MODULECONFIG_H__
 #define __MODULECONFIG_H__
 
-#include <amxmodx_version.h>
+#include <module_version.h>
 
 // Module info
-#define MODULE_NAME "GeoIP"
-#define MODULE_VERSION AMXX_VERSION
+#define MODULE_NAME "GeoIP+"
+#define MODULE_VERSION EXTENSION_VERSION
 #define MODULE_AUTHOR "AMX Mod X Dev Team"
 #define MODULE_URL "http://www.amxmodx.org/"
 #define MODULE_LOGTAG "GEOIP"
