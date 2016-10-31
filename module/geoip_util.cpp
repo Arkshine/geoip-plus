@@ -282,3 +282,73 @@ const char *getLang(int playerIndex)
 
 	return "en";
 }
+
+template <typename D>
+int UTIL_CheckValidChar(D *c)
+{
+	int count;
+	int bytecount = 0;
+
+	for (count = 1; (*c & 0xC0) == 0x80; count++)
+	{
+		c--;
+	}
+
+	switch (*c & 0xF0)
+	{
+		case 0xC0:
+		case 0xD0:
+		{
+			bytecount = 2;
+			break;
+		}
+		case 0xE0:
+		{
+			bytecount = 3;
+			break;
+		}
+		case 0xF0:
+		{
+			bytecount = 4;
+			break;
+		}
+	}
+
+	if (bytecount != count)
+	{
+		return count;
+	}
+
+	return 0;
+}
+
+int MF_SetAmxStringUTF8Char(AMX *amx, cell amx_addr, const char *source, size_t sourcelen, size_t maxlen)
+{
+	auto len = sourcelen;
+	auto needtocheck = false;
+
+	auto dest = MF_GetAmxAddr(amx, amx_addr);
+	auto start = dest;
+
+	if (len > maxlen)
+	{
+		len = maxlen;
+		needtocheck = true;
+	}
+
+	maxlen = len;
+
+	while (maxlen-- && *source)
+	{
+		*dest++ = *(unsigned char*)source++;
+	}
+
+	if (needtocheck && (start[len - 1] & 1 << 7))
+	{
+		len -= UTIL_CheckValidChar(start + len - 1);
+	}
+
+	start[len] = '\0';
+
+	return len;
+}

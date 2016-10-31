@@ -30,4 +30,6 @@ const char* stristr(const char* str, const char* substr);
 extern const char GeoIPCountryCode[252][3];
 extern const char GeoIPCountryCode3[252][4];
 
+int MF_SetAmxStringUTF8Char(AMX *amx, cell amx_addr, const char *source, size_t sourcelen, size_t maxlen);
+
 #endif // _INCLUDE_GEOIPUTIL_H
