@@ -4,7 +4,7 @@ AMX Mod X Module, backported from dev version to be used with the current stable
 
 | Linux | Windows |
 |:------:|:---------:|
-|[![Travis](https://img.shields.io/travis/Arkshine/geoip-plus.svg)](https://travis-ci.org/ikkentim/SampSharp)|[![AppVeyor](https://img.shields.io/appveyor/ci/Arkshine/geoip-plus.svg)](https://ci.appveyor.com/project/Arkshine/geoip-plus/)|
+|[![Travis](https://img.shields.io/travis/Arkshine/geoip-plus.svg)](https://travis-ci.org/Arkshine/geoip-plus/)|[![AppVeyor](https://img.shields.io/appveyor/ci/Arkshine/geoip-plus.svg)](https://ci.appveyor.com/project/Arkshine/geoip-plus/)|
 
 # Description
 
