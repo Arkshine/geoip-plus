@@ -1,6 +1,9 @@
 #ifndef MAXMINDDB_CONFIG_H
 #define MAXMINDDB_CONFIG_H
 
+/* libmaxminddb package version from configure */
+#define PACKAGE_VERSION "1.2.0"
+
 #ifndef MMDB_UINT128_USING_MODE
 /* Define as 1 if we we use unsigned int __atribute__ ((__mode__(TI))) for uint128 values */
 #define MMDB_UINT128_USING_MODE 0
