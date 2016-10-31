@@ -3,20 +3,15 @@ import os
 import subprocess
 import locale
 
-class AMXXConfig(object):
+class ModuleConfig(object):
   def __init__(self):
     self.binaries = []
     self.modules = []
     self.plugins = {}
-    self.libpc300 = None
-    self.amxxpc = None
     self.metamod_path = None
     self.hlsdk_path = None
-    self.mysql_path = None
     self.generated_headers = []
     self.versionlib = None
-    self.zlib = None
-    self.hashing = None
     self.csx_app = None
     self.stdcxx_path = None
 
@@ -81,29 +76,6 @@ class AMXXConfig(object):
       if not self.hlsdk_path:
         raise Exception('Could not find the HLSDK! Try passing --hlsdk to configure.py.')
 
-  def detectMysql(self):
-    if builder.options.disable_mysql:
-      return
-
-    mysql_path = builder.options.mysql_path
-    if not len(mysql_path):
-      mysql_path = os.getenv('MYSQL5', '')
-
-    if len(mysql_path):
-      self.mysql_path = os.path.join(builder.originalCwd, mysql_path)
-      if not os.path.exists(self.mysql_path):
-        raise Exception('Metamod path does not exist: {0}'.format(mysql_path))
-    else:
-      try_paths = [
-        os.path.join(builder.sourcePath, '..', 'mysql-5.0'),
-      ]
-      for try_path in try_paths:
-        if os.path.exists(try_path):
-          self.mysql_path = os.path.normpath(try_path)
-          break
-      if not self.mysql_path:
-        raise Exception('Could not find MySQL! Try passing --mysql to configure.py.')
-
   # Returns list of lines of output from the compiler
   @staticmethod
   def invokeCompiler(args):
@@ -118,8 +90,6 @@ class AMXXConfig(object):
     return None
 
   def configure(self):
-    builder.AddConfigureFile('pushbuild.txt')
-
     cxx = builder.DetectCompilers()
 
     if cxx.like('gcc'):
@@ -147,12 +117,12 @@ class AMXXConfig(object):
     cxx.defines += [
       'AMX_NOPROPLIST',
       'PAWN_CELL_SIZE=32',
-      'AMXMODX_BUILD',
-      'AMXX_USE_VERSIONLIB',
+      'EXTENSION_BUILD',
+      'EXTENSION_USE_VERSIONLIB',
     ]
 
     if self.use_auto_versioning():
-      cxx.defines += ['AMXX_GENERATED_BUILD']
+      cxx.defines += ['EXTENSION_GENERATED_BUILD']
       cxx.includes += [os.path.join(builder.buildPath, 'includes')]
       cxx.includes += [os.path.join(builder.sourcePath, 'support', 'versionlib')]
 
@@ -160,10 +130,9 @@ class AMXXConfig(object):
     cxx.includes += [os.path.join(builder.sourcePath, 'public', 'sdk')]
     cxx.includes += [os.path.join(builder.sourcePath, 'public', 'amtl')]
     cxx.includes += [os.path.join(builder.sourcePath, 'public', 'amtl', 'amtl')]
-    cxx.includes += [os.path.join(builder.sourcePath, 'public', 'memtools')]
+    
     cxx.includes += [os.path.join(builder.sourcePath, 'third_party')]
-    cxx.includes += [os.path.join(builder.sourcePath, 'third_party', 'hashing')]
-    cxx.includes += [os.path.join(builder.sourcePath, 'third_party', 'zlib')]
+    cxx.includes += [os.path.join(builder.sourcePath, 'third_party', 'libmaxminddb')]
 
   def configure_gcc(self, cxx):
     cxx.cflags += [
@@ -320,7 +289,7 @@ class AMXXConfig(object):
         'RC_COMPILE',
       ]
       if self.use_auto_versioning():
-        binary.compiler.rcdefines += ['AMXX_GENERATED_BUILD']
+        binary.compiler.rcdefines += ['EXTENSION_GENERATED_BUILD']
     elif builder.target_platform == 'mac':
       if binary.type == 'library':
         binary.compiler.postlink += [
@@ -329,7 +298,7 @@ class AMXXConfig(object):
         ]
     if self.use_auto_versioning():
       binary.compiler.linkflags += [self.versionlib]
-      binary.compiler.sourcedeps += AMXX.generated_headers
+      binary.compiler.sourcedeps += Module.generated_headers
     return binary
 
   #
@@ -363,67 +332,30 @@ class AMXXConfig(object):
     binary = context.compiler.Program(name)
     return self.AddVersioning(binary)
 
-AMXX = AMXXConfig()
-AMXX.detectProductVersion()
-AMXX.detectMetamod()
-AMXX.detectHlsdk()
-AMXX.detectMysql()
-AMXX.configure()
+Module = ModuleConfig()
+Module.detectProductVersion()
+Module.detectMetamod()
+Module.detectHlsdk()
+Module.configure()
 
-if AMXX.use_auto_versioning():
-  AMXX.generated_headers = builder.RunScript(
+if Module.use_auto_versioning():
+  Module.generated_headers = builder.RunScript(
     'support/Versioning',
-    { 'AMXX': AMXX }
+    { 'Module': Module }
   )
-  AMXX.versionlib = builder.RunScript(
+  Module.versionlib = builder.RunScript(
     'support/versionlib/AMBuilder',
-    { 'AMXX': AMXX }
+    { 'Module': Module }
   )
 
-AMXX.zlib = builder.RunScript(
-  'third_party/zlib/AMBuilder'
-)
-
-AMXX.hashing = builder.RunScript(
-  'third_party/hashing/AMBuilder'
+Module.maxminddb = builder.RunScript(
+  'third_party/libmaxminddb/AMBuilder'
 )
 
 builder.RunBuildScripts(
   [
-    'amxmodx/AMBuilder',
-    'compiler/amxxpc/AMBuilder',
-    'compiler/libpc300/AMBuilder',
-    'modules/cstrike/cstrike/AMBuilder',
-    'modules/cstrike/csx/AMBuilder',
-    'modules/dod/dodfun/AMBuilder',
-    'modules/dod/dodx/AMBuilder',
-    'modules/engine/AMBuilder',
-    'modules/fakemeta/AMBuilder',
-    'modules/fun/AMBuilder',
-    'modules/geoip/AMBuilder',
-    'modules/hamsandwich/AMBuilder',
-    'modules/mysqlx/AMBuilder',
-    'modules/ns/AMBuilder',
-    'modules/nvault/AMBuilder',
-    'modules/regex/AMBuilder',
-    'modules/sockets/AMBuilder',
-    'modules/sqlite/AMBuilder',
-    'modules/tfcx/AMBuilder',
-    'modules/ts/tsfun/AMBuilder',
-    'modules/ts/tsx/AMBuilder',
+    'module/AMBuilder',
   ],
-  { 'AMXX': AMXX }
+  { 'Module': Module }
 )
-
-# The csstats.dat reader is Windows-only.
-if builder.target_platform == 'windows':
-  builder.RunScript('modules/cstrike/csx/WinCSX/AMBuilder', { 'AMXX': AMXX })
-
-if builder.backend == 'amb2':
-  builder.RunBuildScripts([
-      'plugins/AMBuilder',
-      'support/PackageScript',
-    ],
-    { 'AMXX': AMXX }
-  )
 

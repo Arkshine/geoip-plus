@@ -1,28 +1,25 @@
 # vim: set sts=2 ts=8 sw=2 tw=99 et ft=python:
 import os.path
 
-binary = AMXX.MetaModule(builder, 'geoip')
-
-binary.compiler.cxxincludes += [
-  os.path.join(builder.currentSourcePath, '..', '..', 'third_party', 'libmaxminddb')
-]
+binary = Module.MetaModule(builder, 'geoip')
 
 binary.compiler.defines += [
   'HAVE_STDINT_H'
 ]
 
 binary.sources = [
-  '../../public/sdk/amxxmodule.cpp',
-  '../../third_party/libmaxminddb/maxminddb.c',
+  '../public/sdk/amxxmodule.cpp',
   'geoip_main.cpp',
   'geoip_natives.cpp',
   'geoip_util.cpp',
 ]
 
+binary.compiler.linkflags += [Module.maxminddb.binary]
+  
 if builder.target_platform == 'windows':
     binary.sources += ['version.rc']
     
 if builder.target_platform == 'windows':
   binary.compiler.postlink += ['ws2_32.lib']
-
-AMXX.modules += [builder.Add(binary)]
+  
+Module.modules += [builder.Add(binary)]

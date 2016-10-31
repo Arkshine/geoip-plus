@@ -1,0 +1,14 @@
+# vim: sts=2 ts=8 sw=2 tw=99 et ft=python: 
+import os, platform
+
+lib = builder.compiler.StaticLibrary('maxminddb')
+
+lib.compiler.includes += [
+  os.path.join(builder.sourcePath, 'third_party', 'libmaxminddb'),
+]
+
+lib.sources += [
+  'maxminddb.c',
+]
+
+rvalue = builder.Add(lib)
