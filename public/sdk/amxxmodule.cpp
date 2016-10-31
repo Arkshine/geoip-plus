@@ -2421,7 +2421,7 @@ PFN_ADD_NEW_NATIVES			g_fn_AddNewNatives;
 PFN_BUILD_PATHNAME			g_fn_BuildPathname;
 PFN_BUILD_PATHNAME_R		g_fn_BuildPathnameR;
 PFN_GET_AMXADDR				g_fn_GetAmxAddr;
-PFN_GET_AMXVECTOR_NULL		g_fn_GetAmxVectorNull;
+//PFN_GET_AMXVECTOR_NULL		g_fn_GetAmxVectorNull;
 PFN_PRINT_SRVCONSOLE		g_fn_PrintSrvConsole;
 PFN_GET_MODNAME				g_fn_GetModname;
 PFN_GET_AMXSCRIPTNAME		g_fn_GetAmxScriptName;
@@ -2429,10 +2429,10 @@ PFN_GET_AMXSCRIPT			g_fn_GetAmxScript;
 PFN_FIND_AMXSCRIPT_BYAMX	g_fn_FindAmxScriptByAmx;
 PFN_FIND_AMXSCRIPT_BYNAME	g_fn_FindAmxScriptByName;
 PFN_SET_AMXSTRING			g_fn_SetAmxString;
-PFN_SET_AMXSTRING_UTF8_CHAR	g_fn_SetAmxStringUTF8Char;
-PFN_SET_AMXSTRING_UTF8_CELL	g_fn_SetAmxStringUTF8Cell;
+//PFN_SET_AMXSTRING_UTF8_CHAR	g_fn_SetAmxStringUTF8Char;
+//PFN_SET_AMXSTRING_UTF8_CELL	g_fn_SetAmxStringUTF8Cell;
 PFN_GET_AMXSTRING			g_fn_GetAmxString;
-PFN_GET_AMXSTRING_NULL		g_fn_GetAmxStringNull;
+//PFN_GET_AMXSTRING_NULL		g_fn_GetAmxStringNull;
 PFN_GET_AMXSTRINGLEN		g_fn_GetAmxStringLen;
 PFN_FORMAT_AMXSTRING		g_fn_FormatAmxString;
 PFN_COPY_AMXMEMORY			g_fn_CopyAmxMemory;
@@ -2501,7 +2501,7 @@ PFN_GETLOCALINFO			g_fn_GetLocalInfo;
 PFN_AMX_REREGISTER			g_fn_AmxReRegister;
 PFN_REGISTERFUNCTIONEX		g_fn_RegisterFunctionEx;
 PFN_MESSAGE_BLOCK			g_fn_MessageBlock;
-PFN_GET_CONFIG_MANAGER		g_fn_GetConfigManager;
+//PFN_GET_CONFIG_MANAGER		g_fn_GetConfigManager;
 
 // *** Exports ***
 C_DLLEXPORT int AMXX_Query(int *interfaceVersion, amxx_module_info_s *moduleInfo)
@@ -2561,7 +2561,7 @@ C_DLLEXPORT int AMXX_Attach(PFN_REQ_FNPTR reqFnptrFunc)
 	REQFUNC("Format", g_fn_Format, PFN_FORMAT);
 	REQFUNC("RegisterFunction", g_fn_RegisterFunction, PFN_REGISTERFUNCTION);
 	REQFUNC("RegisterFunctionEx", g_fn_RegisterFunctionEx, PFN_REGISTERFUNCTIONEX);
-	REQFUNC("GetConfigManager", g_fn_GetConfigManager, PFN_GET_CONFIG_MANAGER);
+	//REQFUNC("GetConfigManager", g_fn_GetConfigManager, PFN_GET_CONFIG_MANAGER);
 
 	// Amx scripts
 	REQFUNC("GetAmxScript", g_fn_GetAmxScript, PFN_GET_AMXSCRIPT);
@@ -2573,15 +2573,15 @@ C_DLLEXPORT int AMXX_Attach(PFN_REQ_FNPTR reqFnptrFunc)
 
 	// String / mem in amx scripts support
 	REQFUNC("SetAmxString", g_fn_SetAmxString, PFN_SET_AMXSTRING);
-	REQFUNC("SetAmxStringUTF8Char", g_fn_SetAmxStringUTF8Char, PFN_SET_AMXSTRING_UTF8_CHAR);
-	REQFUNC("SetAmxStringUTF8Cell", g_fn_SetAmxStringUTF8Cell, PFN_SET_AMXSTRING_UTF8_CELL);
+	//REQFUNC("SetAmxStringUTF8Char", g_fn_SetAmxStringUTF8Char, PFN_SET_AMXSTRING_UTF8_CHAR);
+	//REQFUNC("SetAmxStringUTF8Cell", g_fn_SetAmxStringUTF8Cell, PFN_SET_AMXSTRING_UTF8_CELL);
 	REQFUNC("GetAmxString", g_fn_GetAmxString, PFN_GET_AMXSTRING);
-	REQFUNC("GetAmxStringNull", g_fn_GetAmxStringNull, PFN_GET_AMXSTRING_NULL);
+	//REQFUNC("GetAmxStringNull", g_fn_GetAmxStringNull, PFN_GET_AMXSTRING_NULL);
 	REQFUNC("GetAmxStringLen", g_fn_GetAmxStringLen, PFN_GET_AMXSTRINGLEN);
 	REQFUNC("FormatAmxString", g_fn_FormatAmxString, PFN_FORMAT_AMXSTRING);
 	REQFUNC("CopyAmxMemory", g_fn_CopyAmxMemory, PFN_COPY_AMXMEMORY);
 	REQFUNC("GetAmxAddr", g_fn_GetAmxAddr, PFN_GET_AMXADDR);
-	REQFUNC("GetAmxVectorNull", g_fn_GetAmxVectorNull, PFN_GET_AMXVECTOR_NULL);
+	//REQFUNC("GetAmxVectorNull", g_fn_GetAmxVectorNull, PFN_GET_AMXVECTOR_NULL);
 
 	REQFUNC("amx_Exec", g_fn_AmxExec, PFN_AMX_EXEC);
 	REQFUNC("amx_Execv", g_fn_AmxExecv, PFN_AMX_EXECV);
@@ -2723,7 +2723,7 @@ void ValidateMacros_DontCallThis_Smiley()
 	MF_BuildPathnameR(NULL, 0, "%d", 0);
 	MF_FormatAmxString(NULL, 0, 0, NULL);
 	MF_GetAmxAddr(NULL, 0);
-	MF_GetAmxVectorNull(NULL, 0);
+//	MF_GetAmxVectorNull(NULL, 0);
 	MF_PrintSrvConsole("str", "str", 0);
 	MF_GetModname();
 	MF_GetScriptName(0);
@@ -2731,10 +2731,10 @@ void ValidateMacros_DontCallThis_Smiley()
 	MF_FindScriptByAmx(NULL);
 	MF_FindScriptByName("str");
 	MF_SetAmxString(NULL, 0, "str", 0);
-	MF_SetAmxStringUTF8Char(NULL, 0, "str", 0, 0);
-	MF_SetAmxStringUTF8Cell(NULL, 0, str, 0, 0);
+//	MF_SetAmxStringUTF8Char(NULL, 0, "str", 0, 0);
+//	MF_SetAmxStringUTF8Cell(NULL, 0, str, 0, 0);
 	MF_GetAmxString(NULL, 0, 0, NULL);
-	MF_GetAmxStringNull(NULL, 0, 0, NULL);
+//	MF_GetAmxStringNull(NULL, 0, 0, NULL);
 	MF_GetAmxStringLen(NULL);
 	MF_CopyAmxMemory(NULL, NULL, 0);
 	MF_Log("str", "str", 0);
@@ -2789,7 +2789,7 @@ void ValidateMacros_DontCallThis_Smiley()
 	MF_RemoveLibraries(NULL);
 	MF_OverrideNatives(NULL, NULL);
 	MF_MessageBlock(0, 0, NULL);
-	MF_GetConfigManager();
+//	MF_GetConfigManager();
 }
 #endif
 
